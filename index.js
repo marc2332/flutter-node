@@ -8,7 +8,6 @@
  *
  */
 
-
 module.exports = {
    run(object,callback){
     const { exec } = require('child_process');
@@ -27,8 +26,7 @@ module.exports = {
         if(code==0) return;
     });
     command.on('exit', (code) => {
-        if(code==0) return;
-        
+        if(code==0) return ;
     });
    },
    getDevices(callback){

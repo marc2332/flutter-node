@@ -1,11 +1,13 @@
 {
   "name": "flutter-node",
-  "version": "0.0.1",
+  "version": "0.0.11",
   "description": "A package to interact with the flutter SDK.",
+  "repository": "github:marc2332/flutter-node",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
   },
+  "bugs": "https://github.com/marc2332/flutter-node/issues",
   "keywords": [
     "flutter",
     "node",

@@ -1,6 +1,6 @@
 # Flutter-Node
 
-A NodeJS module to interact with the FLutter SDK
+A NodeJS package to interact with the FLutter SDK
 
 Working now:
 
@@ -16,6 +16,10 @@ npm install flutter-node
 
 ## Usage:
 
+```javascript
+const Flutter = require("flutter-node")
+```
+
 ### getDevices()
 
 If there are no devices connected it will return an error.
@@ -24,19 +28,19 @@ If there are devices connected it will return an array with arrays which refers 
 
 ```javascript
 
-    Flutter.getDevices(function(list,err){
-        /*
-            Example:
-            [
-                [Phone Name],
-                [2g19a281],
-                [android-arm64],
-                [Android 9 (API 28)\n]
-            ]
+Flutter.getDevices(function(list,err){
+/*
+    Could return:
+    [
+        [Phone Name],
+        [2g19a281],
+        [android-arm64],
+        [Android 9 (API 28)\n]
+    ]
 
 
-        */
-    })
+*/
+})
 
 ```
 
@@ -46,12 +50,12 @@ You must pass the app source code directory, and the device id (which you can ge
 
 ```javascript
 
-    Flutter.run({
-        path:app_source_code_directory,
-        id:device_id 
-    },function(output,err){
+Flutter.run({
+    path:app_source_code_directory,
+    id:device_id 
+},function(output,err){
 
-    })
+})
 ```
 
 ## Example:
@@ -78,6 +82,5 @@ Flutter.getDevices(function(array,err){
 })
 
 ```
-
 
 Made by Marc Espin
