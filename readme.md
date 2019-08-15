@@ -22,7 +22,7 @@ If there are no devices connected it will return an error.
 
 If there are devices connected it will return an array with arrays which refers to each device.
 
-`javascript
+```javascript
 
     Flutter.getDevices(function(list,err){
         /*
@@ -38,13 +38,13 @@ If there are devices connected it will return an array with arrays which refers 
         */
     })
 
-`
+```
 
 ### run()
 
 You must pass the app source code directory, and the device id (which you can get with the getDevices() method.)
 
-`javascript
+```javascript
 
     Flutter.run({
         path:app_source_code_directory,
@@ -52,11 +52,11 @@ You must pass the app source code directory, and the device id (which you can ge
     },function(output,err){
 
     })
-`
+```
 
 ## Example:
 
-`javascript
+```javascript
 
 const Flutter = require("flutter-node");
 
@@ -77,7 +77,7 @@ Flutter.getDevices(function(array,err){
     })
 })
 
-`
+```
 
 
 Made by Marc Espin
