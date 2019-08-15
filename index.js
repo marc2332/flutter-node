@@ -1,4 +1,12 @@
-
+/*
+ *
+ * MIT License
+ *
+ * Copyright (c) Marc Espín Sanz
+ *
+ * Full license on License.md
+ *
+ */
 
 
 module.exports = {
@@ -9,20 +17,15 @@ module.exports = {
             callback(undefined,err)
         }
     })
-
     const command = exec(`cd ${object.path} && flutter run -d ${object.id}`);
-
     let times = 0;
-
     command.stdout.on('data', (data) => {
         times ++
         callback(data,undefined)
     });
-
     command.on('close', (code) => {
         if(code==0) return;
     });
-
     command.on('exit', (code) => {
         if(code==0) return;
         
@@ -52,7 +55,6 @@ module.exports = {
                 if(devices.length == 0){
                     _break = true;
                     return callback([],"No devices detected.");
-                   
                 }
                 return;
             }

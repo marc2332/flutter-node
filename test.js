@@ -5,6 +5,7 @@ Flutter.getDevices(function(array,err){
         console.log(err)
         return err;
     }
+    console.log(array)
     Flutter.run({
         path:"C:\\Users\\mespi\\Desktop\\test_marc",
         id:array[0][1]
