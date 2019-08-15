@@ -32,13 +32,11 @@ Flutter.getDevices(function(list,err){
 /*
     Could return:
     [
-        [Phone Name],
-        [2g19a281],
-        [android-arm64],
-        [Android 9 (API 28)\n]
+        [Phone Name,
+        2g19a281,
+        android-arm64,
+        Android 9 (API 28)\n]
     ]
-
-
 */
 })
 
