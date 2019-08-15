@@ -1,0 +1,16 @@
+{
+  "name": "flutter-node",
+  "version": "0.0.1",
+  "description": "A package to interact with the flutter SDK.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "flutter",
+    "node",
+    "npm"
+  ],
+  "author": "Marc Espin",
+  "license": "MIT"
+}
