@@ -2,7 +2,7 @@
  *
  * MIT License
  *
- * Copyright (c) Marc Espín Sanz
+ * Copyright (c) Marc Espin Sanz
  *
  * Full license on License.md
  *

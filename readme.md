@@ -50,7 +50,7 @@ You must pass the app source code directory, and the device id (which you can ge
 
 Flutter.run({
     path:app_source_code_directory,
-    id:device_id 
+    id:device_id
 },function(output,err){
 
 })
@@ -80,5 +80,3 @@ Flutter.getDevices(function(array,err){
 })
 
 ```
-
-Made by Marc Espin
