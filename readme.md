@@ -20,6 +20,16 @@ npm install flutter-node
 const Flutter = require("flutter-node")
 ```
 
+### isInstalled()
+
+Detect if Flutter is intalled on the client:
+
+```javascript
+Flutter.isIntalled(function(result){
+  console.log(result) //Boolean: true or false
+})
+```
+
 ### getDevices()
 
 If there are no devices connected it will return an error.
@@ -35,7 +45,7 @@ Flutter.getDevices(function(list,err){
         [Phone Name,
         2g19a281,
         android-arm64,
-        Android 9 (API 28)\n]
+        Android 10 (API 29) ]
     ]
 */
 })
@@ -68,7 +78,7 @@ Flutter.getDevices(function(array,err){
         return err;
     }
     Flutter.run({
-        path:"C:\\Users\\mespi\\Desktop\\test_marc",
+        path:"C:\\Users\\usename\\Desktop\\flutter_app",
         id:array[0][1]
     },function(output,err){
         if(err) {

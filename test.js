@@ -1,5 +1,13 @@
 const Flutter = require("./index.js");
 
+Flutter.isInstalled((out)=>{
+  if(out){
+    console.log("Flutter is installed.")
+  }else{
+    console.log("Flutter is not installed.")
+  }
+})
+
 Flutter.getDevices(function (array, err) {
     if (err) {
         console.log(err)
