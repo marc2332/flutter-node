@@ -6,6 +6,7 @@ Working now:
 
 * Get an array of the connected devices
 * Run an app from the source
+* Hot reload the app
 
 ## Installation
 Using npm:
