@@ -50,13 +50,13 @@ function app({
       me.process = exec(`cd ${path} && flutter run -d ${deviceId}`);
 
       me.process.stdout.on("data", data => {
-        onData()
+        onData(data)
       })
       me.process.stdout.on("exit", data => {
-        onExit()
+        onExit(data)
       })
       me.process.stdout.on("close", data => {
-        onClose()
+        onClose(data)
       })
     },
     reload(){

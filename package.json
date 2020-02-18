@@ -1,6 +1,6 @@
 {
   "name": "flutter-node",
-  "version": "0.1.0",
+  "version": "0.1.01",
   "description": "A package to interact with the flutter SDK.",
   "repository": "github:marc2332/flutter-node",
   "main": "index.js",
@@ -11,7 +11,8 @@
   "keywords": [
     "flutter",
     "node",
-    "npm"
+    "npm",
+    "sdk"
   ],
   "author": "Marc Espín Sanz <mespinsanz@gmail.com>",
   "license": "MIT"
