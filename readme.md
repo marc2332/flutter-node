@@ -25,8 +25,8 @@ const Flutter = require("flutter-node")
 Detect if Flutter is intalled on the client:
 
 ```javascript
-Flutter.isIntalled(function(result){
-  console.log(result) //Boolean: true or false
+Flutter.isInstalled().then(function(res){
+    // res = false / true
 })
 ```
 
@@ -38,32 +38,40 @@ If there are devices connected it will return an array with arrays which refers 
 
 ```javascript
 
-Flutter.getDevices(function(list,err){
-/*
-    Could return:
-    [
-        [Phone Name,
-        2g19a281,
-        android-arm64,
-        Android 10 (API 29) ]
-    ]
-*/
+Flutter.getDevices().then(function(res){
+    /*
+        res {
+            msg:'Devices found:',
+            devices:[
+                {
+                    name:'Some phone',
+                    id:'ffffffff',
+                    arch:'android-arm64',
+                    api:'Android 9 (API 28)'
+                }
+            ]
+        }
+    
+    
+    */
 })
 
 ```
 
-### run()
+### app()
 
 You must pass the app source code directory, and the device id (which you can get with the getDevices() method.)
 
 ```javascript
 
-Flutter.run({
-    path:app_source_code_directory,
-    id:device_id
-},function(output,err){
-
+const myApp = new Flutter.app({
+    path:'/somewhere',
+    deviceId:mydevice.id
 })
+
+myApp.run()
+
+myApp.reload()
 ```
 
 ## Example:
@@ -72,21 +80,25 @@ Flutter.run({
 
 const Flutter = require("flutter-node");
 
-Flutter.getDevices(function(array,err){
-    if(err){
-        console.log(err)
-        return err;
-    }
-    Flutter.run({
-        path:"C:\\Users\\usename\\Desktop\\flutter_app",
-        id:array[0][1]
-    },function(output,err){
-        if(err) {
-            console.log(err)
-            return err;
-        }
-        console.log(output)
+Flutter.isInstalled().then((result)=>console.log(result))
+
+Flutter.getDevices().then(function(res){
+
+  if(res.devices.length >= 1){
+    const myDevice = res.devices[0]
+
+    const myApp = new Flutter.app({
+      path:'/somewhere',
+      deviceId:myDevice.id
     })
+
+    myApp.run()
+
+    setTimeout(()=>{
+      myApp.reload()
+    }, 25000);
+  }
 })
+
 
 ```

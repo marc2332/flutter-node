@@ -3,71 +3,115 @@
  *
  * MIT License
  *
- * Copyright (c) Marc Espin Sanz
+ * Copyright (c) Marc Espín Sanz
  *
  * Full license on License.md
  *
  */
-
-module.exports = {
-  isInstalled(callback) {
+function isInstalled(){
+  return new Promise((resolve, reject) => {
     const { exec } = require("child_process");
     exec(`flutter`, out => {
-      callback(!out);
+      resolve(!out)
     });
-  },
-  run(object, callback) {
+  })
+}
+
+function getDevices(){
+  return new Promise((resolve, reject) => {
     const { exec } = require("child_process");
-    exec(`flutter`, err => {
-      if (err) {
-        callback(undefined, err);
-      }
-    });
-    const command = exec(`cd ${object.path} && flutter run -d ${object.id}`);
-    let times = 0;
-    command.stdout.on("data", data => {
-      times++;
-      callback(data, undefined);
-    });
-    command.on("close", code => {
-      if (code == 0) return;
-    });
-    command.on("exit", code => {
-      if (code == 0) return;
-    });
-  },
-  getDevices(callback) {
-    const { exec } = require("child_process");
-    const command = exec(`flutter devices`);
-    let devices = [];
-    let times = 0;
-    let loop_times = 0;
-    let _break = false;
-    async function loop() {
-      if (_break) return;
-      setTimeout(function() {
-        loop();
-      }, 1);
-      if (loop_times < times) {
-        loop_times++;
-      } else if (times > 1) {
-        _break = true;
-        return callback(devices);
-      }
+    const process = exec(`flutter devices`);
+
+    const instance = new parsingDevices(process)
+
+    instance.then(function(devices){
+      resolve({
+        msg:devices.length == 0?'No devices found.':'Found devices:',
+        devices:devices
+      })
+    })
+  });
+}
+
+function app({
+  path,
+  deviceId
+}){
+  
+  const me = this;
+
+  return {
+    run({
+      onData = ()=>{},
+      onExit = ()=>{},
+      onClose = ()=>{}
+    }){
+      const { exec } = require("child_process");
+      me.process = exec(`cd ${path} && flutter run -d ${deviceId}`);
+
+      me.process.stdout.on("data", data => {
+        onData()
+      })
+      me.process.stdout.on("exit", data => {
+        onExit()
+      })
+      me.process.stdout.on("close", data => {
+        onClose()
+      })
+    },
+    reload(){
+      me.process.stdin.write('r')
     }
-    loop();
-    command.stdout.on("data", data => {
-      if (data.match("^No")) {
-        if (devices.length == 0) {
-          _break = true;
-          return callback([], "No devices detected.");
-        }
-        return;
-      }
-      times++;
-      if (times == 1) return;
-      const parsed = data.split("•");
-      devices.push(parsed);
-    });
   }
+}
+
+function parsingDevices(process){
+
+  let devices = []
+  let devicesCount = 0
+
+  const p = new Promise((resolve, reject) => {
+    process.stdout.on("data", data => {
+
+      const device = getDevice(data,devicesCount)
+
+      if(device.totalDevices != undefined){
+        devicesCount = device.totalDevices
+      }else if(device[0]!=undefined){
+        devices.push({
+          name:device[0],
+          id:device[1],
+          arch:device[2],
+          api:device[3],
+        })
+      }
+      if(devicesCount == devices.length ){
+        resolve(devices)
+      }   
+    });
+  })
+
+  return p
+}
+
+function getDevice(data,count){
+  const splittedData = data.split('•')
+  if(!splittedData[0].match('^Waiting')){
+    if(count == 0){
+      const char = splittedData[0][0]
+      return {
+        totalDevices : char.match('N')?0:char
+      }
+    }else{
+      return splittedData
+    }
+  }else{
+    return "";
+  }
+}
+
+module.exports = {
+  isInstalled,
+  getDevices,
+  app
 };
