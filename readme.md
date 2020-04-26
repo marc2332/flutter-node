@@ -26,7 +26,7 @@ const Flutter = require("flutter-node")
 Detect if Flutter is intalled on the client:
 
 ```javascript
-Flutter.isInstalled().then(function(res){
+Flutter.isInstalled().then(res => {
     // res = false / true
 })
 ```
@@ -39,8 +39,8 @@ If there are devices connected it will return an array with arrays which refers 
 
 ```javascript
 
-Flutter.getDevices().then(function(res){
-    /*
+Flutter.getDevices().then( res => {
+	/*
         res {
             msg:'Devices found:',
             devices:[
@@ -52,8 +52,8 @@ Flutter.getDevices().then(function(res){
                 }
             ]
         }
-    
-    
+
+
     */
 })
 
@@ -73,6 +73,8 @@ const myApp = new Flutter.app({
 myApp.run()
 
 myApp.reload()
+
+myApp.close()
 ```
 
 ## Example:
@@ -81,25 +83,21 @@ myApp.reload()
 
 const Flutter = require("flutter-node");
 
-Flutter.isInstalled().then((result)=>console.log(result))
+Flutter.isInstalled().then( result => console.log(result))
 
-Flutter.getDevices().then(function(res){
-
-  if(res.devices.length >= 1){
-    const myDevice = res.devices[0]
-
-    const myApp = new Flutter.app({
-      path:'/somewhere',
-      deviceId:myDevice.id
-    })
-
-    myApp.run()
-
-    setTimeout(()=>{
-      myApp.reload()
-    }, 25000);
-  }
+Flutter.getDevices().then( res => {
+	if(res.devices.length >= 1){
+		const myDevice = res.devices[0]
+		const myApp = new Flutter.app({
+			path:'/somewhere',
+			deviceId:myDevice.id
+		})
+		myApp.run()
+		setTimeout(()=>{
+			myApp.reload()
+		}, 25000);
+		// myApp.reload()
+	}
 })
-
 
 ```
