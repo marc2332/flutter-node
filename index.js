@@ -8,19 +8,19 @@
  * Full license on License.md
  *
  */
-function isInstalled(){
+function isInstalled({ alias = 'flutter' } = {}){
 	return new Promise((resolve, reject) => {
 		const { exec } = require('child_process');
-		exec('flutter', out => {
+		exec(alias, out => {
 			resolve( !out )
 		});
 	})
 }
 
-function getDevices(){
+function getDevices({ alias = 'flutter' } = {}){
 	return new Promise((resolve, reject) => {
 		const { exec } = require('child_process');
-		const process = exec('flutter devices');
+		const process = exec(`${alias} devices`);
 		parsingDevices( process ).then( devices => {
 			resolve({
 				msg: devices.length == 0 ? 'No devices found.' : 'Found devices:',
@@ -30,12 +30,12 @@ function getDevices(){
 	});
 }
 
-function app({ path, deviceId }){
+function app({ path, deviceId, alias = 'flutter' }){
 	let execProcess;
 	return {
 		run({ onData = ()=>{}, onExit = ()=>{}, onClose = ()=>{} } = {}) {
 			const { exec } = require("child_process");
-			execProcess = exec(`cd ${path} && flutter run -d ${deviceId}`);
+			execProcess = exec(`cd ${path} && ${alias} run -d ${deviceId}`);
 			execProcess.stdout.on('data', data => {
 				onData(data)
 			})

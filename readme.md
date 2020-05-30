@@ -1,6 +1,6 @@
 # Flutter-Node
 
-A NodeJS package to interact with the FLutter SDK
+A NodeJS package to interact with the FLutter SDK via CLI wrapping
 
 Working now:
 
